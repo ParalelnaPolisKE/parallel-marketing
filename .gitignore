@@ -1,0 +1,17 @@
+# Environment files — NIKDY necommituj skutočné kľúče!
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (ak sa použije pre build šablón)
+node_modules/
