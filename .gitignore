@@ -13,5 +13,5 @@ Thumbs.db
 *.swp
 *.swo
 
-# Node (ak sa použije pre build šablón)
+# Node
 node_modules/
