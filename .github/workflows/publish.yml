@@ -1,0 +1,63 @@
+name: Publish Content
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Find new/changed content files
+        id: changed
+        run: |
+          FILES=$(git diff --name-only HEAD~1 HEAD -- 'content/**/*.yaml' 'content/**/*.yml' | tr '\n' ',')
+          echo "files=$FILES" >> $GITHUB_OUTPUT
+          if [ -z "$FILES" ]; then
+            echo "No content files changed."
+          else
+            echo "Changed files: $FILES"
+          fi
+
+      - name: Publish to platforms
+        if: steps.changed.outputs.files != ''
+        env:
+          PUBLISH_FILES: ${{ steps.changed.outputs.files }}
+          NOSTR_PRIVATE_KEY: ${{ secrets.NOSTR_PRIVATE_KEY }}
+          NOSTR_RELAYS: ${{ secrets.NOSTR_RELAYS }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: node scripts/publish.mjs
+
+      - name: Commit publish logs
+        if: steps.changed.outputs.files != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add logs/
+          if git diff --staged --quiet; then
+            echo "No logs to commit."
+          else
+            git commit -m "chore: add publish logs
+
+          Co-Authored-By: Paperclip <noreply@paperclip.ing>"
+            git push
+          fi

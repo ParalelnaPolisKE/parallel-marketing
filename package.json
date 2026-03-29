@@ -1,0 +1,16 @@
+{
+  "name": "parallel-marketing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Marketing automation for Paralelná Polis Košice",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "publish": "node scripts/publish.mjs"
+  },
+  "dependencies": {
+    "nostr-tools": "^2.10.4",
+    "websocket-polyfill": "^0.0.3",
+    "yaml": "^2.7.0"
+  }
+}
