@@ -60,6 +60,7 @@ jobs:
 
       - name: Commit publish logs
         if: steps.changed.outputs.files != ''
+        continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -70,5 +71,13 @@ jobs:
             git commit -m "chore: add publish logs
 
           Co-Authored-By: Paperclip <noreply@paperclip.ing>"
-            git push
+            git push || echo "::warning::Could not push logs to main (branch protection). Logs saved as artifact."
           fi
+
+      - name: Upload logs as artifact
+        if: steps.changed.outputs.files != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-logs
+          path: logs/published/
+          retention-days: 90
