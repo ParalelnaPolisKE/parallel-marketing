@@ -5,6 +5,11 @@ on:
     branches: [main]
     paths:
       - 'content/**'
+  workflow_dispatch:
+    inputs:
+      files:
+        description: 'Comma-separated content file paths to publish (leave empty to scan all)'
+        required: false
 
 jobs:
   publish:
@@ -24,15 +29,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Find new/changed content files
+      - name: Find content files to publish
         id: changed
         run: |
-          FILES=$(git diff --name-only HEAD~1 HEAD -- 'content/**/*.yaml' 'content/**/*.yml' | tr '\n' ',')
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.files }}" ]; then
+            FILES="${{ inputs.files }}"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            FILES=$(find content -name '*.yaml' -o -name '*.yml' | tr '\n' ',')
+          else
+            FILES=$(git diff --name-only HEAD~1 HEAD -- 'content/**/*.yaml' 'content/**/*.yml' | tr '\n' ',')
+          fi
           echo "files=$FILES" >> $GITHUB_OUTPUT
           if [ -z "$FILES" ]; then
-            echo "No content files changed."
+            echo "No content files to publish."
           else
-            echo "Changed files: $FILES"
+            echo "Files to publish: $FILES"
           fi
 
       - name: Publish to platforms
