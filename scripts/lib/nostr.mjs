@@ -1,4 +1,5 @@
-import { finalizeEvent, getPublicKey, nip19 } from 'nostr-tools/pure';
+import { finalizeEvent, getPublicKey } from 'nostr-tools/pure';
+import { decode, npubEncode } from 'nostr-tools/nip19';
 import { Relay } from 'nostr-tools/relay';
 
 /**
@@ -9,7 +10,7 @@ export async function publishToNostr({ text, privateKey, relays }) {
   // Decode nsec to hex if needed
   let secretKeyBytes;
   if (privateKey.startsWith('nsec')) {
-    const decoded = nip19.decode(privateKey);
+    const decoded = decode(privateKey);
     secretKeyBytes = decoded.data;
   } else {
     secretKeyBytes = hexToBytes(privateKey);
@@ -25,7 +26,7 @@ export async function publishToNostr({ text, privateKey, relays }) {
   const pubkey = getPublicKey(secretKeyBytes);
   const eventId = event.id;
 
-  console.log(`Publishing event ${eventId} from ${nip19.npubEncode(pubkey)}`);
+  console.log(`Publishing event ${eventId} from ${npubEncode(pubkey)}`);
 
   const results = [];
 
@@ -42,7 +43,7 @@ export async function publishToNostr({ text, privateKey, relays }) {
     }
   }
 
-  return { eventId, pubkey: nip19.npubEncode(pubkey), results };
+  return { eventId, pubkey: npubEncode(pubkey), results };
 }
 
 function hexToBytes(hex) {
