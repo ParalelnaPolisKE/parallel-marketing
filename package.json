@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "nostr-tools": "^2.10.4",
+    "twitter-api-v2": "^1.29.0",
     "websocket-polyfill": "^0.0.3",
     "yaml": "^2.7.0"
   }

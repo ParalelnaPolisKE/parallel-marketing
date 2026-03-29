@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'fs';
 import { join, basename } from 'path';
 import { parse as parseYaml } from 'yaml';
 import { publishToNostr } from './lib/nostr.mjs';
+import { publishToX } from './lib/x.mjs';
 
 const CONTENT_DIRS = ['content/posts', 'content/events', 'content/reshares'];
 const LOG_DIR = 'logs/published';
@@ -56,8 +57,7 @@ async function main() {
             log.platforms.nostr = await publishNostr(content);
             break;
           case 'x':
-            console.log(`  ⏳ X.com publishing not yet implemented`);
-            log.platforms.x = { status: 'not_implemented' };
+            log.platforms.x = await publishX(content);
             break;
           case 'facebook':
             console.log(`  ⏳ Facebook publishing not yet implemented`);
@@ -106,6 +106,22 @@ async function publishNostr(content) {
     eventId: result.eventId,
     pubkey: result.pubkey,
     relays: result.results,
+  };
+}
+
+async function publishX(content) {
+  if (!process.env.X_API_KEY) throw new Error('X_API_KEY not set');
+
+  const result = await publishToX({
+    text: content.text.trim(),
+  });
+
+  console.log(`  ✓ X.com: published tweet ${result.tweetId}`);
+
+  return {
+    status: 'published',
+    tweetId: result.tweetId,
+    text: result.text,
   };
 }
 
