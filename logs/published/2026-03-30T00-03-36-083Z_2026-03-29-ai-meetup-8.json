@@ -1,0 +1,11 @@
+{
+  "file": "content/posts/2026-03-29-ai-meetup-8.yaml",
+  "title": "AI meetup 8: Prechádzka latentným priestorom",
+  "publishedAt": "2026-03-30T00:03:35.908Z",
+  "platforms": {
+    "x": {
+      "status": "error",
+      "error": "X API 403 Forbidden. Possible causes:\n  1. App permissions must be \"Read and Write\" in developer.x.com\n  2. Access Token + Secret must be regenerated AFTER changing permissions\n  3. Free tier: check that your app has tweet.write access\n  4. Your X Developer account/app may be suspended or restricted\n  Detail: {\"detail\":\"You are not permitted to perform this action.\",\"type\":\"about:blank\",\"title\":\"Forbidden\",\"status\":403}"
+    }
+  }
+}
