@@ -37,7 +37,7 @@ export async function createDraftCampaign({ subject, previewText, htmlContent, f
       subject_line: subject,
       preview_text: previewText,
       from_name: fromName,
-      reply_to: 'info@paralelnapolis.sk',
+      reply_to: 'info@ppke.sk',
     },
   });
 
