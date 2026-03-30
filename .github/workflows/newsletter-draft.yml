@@ -1,0 +1,28 @@
+name: Create Newsletter Draft
+
+on:
+  workflow_dispatch:
+    inputs:
+      file:
+        description: 'Path to newsletter YAML (e.g. content/newsletters/2026-03-30-newsletter.yaml)'
+        required: true
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create Mailchimp draft
+        env:
+          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          MAILCHIMP_LIST_ID: ${{ secrets.MAILCHIMP_LIST_ID }}
+          MAILCHIMP_SERVER_PREFIX: ${{ secrets.MAILCHIMP_SERVER_PREFIX }}
+        run: node scripts/create-newsletter-draft.mjs "${{ inputs.file }}"

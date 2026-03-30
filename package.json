@@ -9,6 +9,7 @@
     "publish": "node scripts/publish.mjs"
   },
   "dependencies": {
+    "@mailchimp/mailchimp_marketing": "^3.0.80",
     "nostr-tools": "^2.10.4",
     "twitter-api-v2": "^1.29.0",
     "websocket-polyfill": "^0.0.3",

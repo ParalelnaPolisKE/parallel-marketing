@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{subject}}</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    .wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+    }
+    .header {
+      background-color: #1a1a1a;
+      color: #ffffff;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .header p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: #aaaaaa;
+    }
+    .content {
+      padding: 32px 24px;
+    }
+    .content h2 {
+      font-size: 20px;
+      margin: 0 0 16px;
+      color: #1a1a1a;
+    }
+    .content p {
+      margin: 0 0 16px;
+      font-size: 16px;
+    }
+    .event-card {
+      background-color: #f8f8f8;
+      border-left: 4px solid #1a1a1a;
+      padding: 20px;
+      margin: 24px 0;
+    }
+    .event-card h3 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+    .event-card .detail {
+      margin: 4px 0;
+      font-size: 15px;
+      color: #444444;
+    }
+    .cta-button {
+      display: inline-block;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 12px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      margin: 16px 0;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 32px 0;
+    }
+    .footer {
+      background-color: #f4f4f4;
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #888888;
+    }
+    .footer a {
+      color: #666666;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>Paraleln&#225; Polis Ko&#353;ice</h1>
+      <p>Newsletter</p>
+    </div>
+    <div class="content">
+      {{content}}
+    </div>
+    <div class="footer">
+      <p>Paraleln&#225; Polis Ko&#353;ice | Hlavn&#225; 36, Ko&#353;ice</p>
+      <p><a href="https://paralelnapolis.sk">paralelnapolis.sk</a></p>
+      <p style="margin-top: 16px; font-size: 12px;">
+        <a href="*|UNSUB|*">Odhl&#225;si&#357; sa z odberu</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
