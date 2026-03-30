@@ -44,6 +44,7 @@ async function main() {
       }
     }
 
+    const alreadyPublished = getPublishedPlatforms(filePath);
     const log = {
       file: filePath,
       title: content.title || null,
@@ -52,6 +53,10 @@ async function main() {
     };
 
     for (const platform of content.platforms) {
+      if (alreadyPublished[platform]) {
+        console.log(`  ⏭ ${platform}: already published, skipping`);
+        continue;
+      }
       try {
         switch (platform) {
           case 'nostr':
@@ -191,6 +196,24 @@ function guessMime(filePath) {
   return mimes[ext] || null;
 }
 
+function getPublishedPlatforms(filePath) {
+  if (!existsSync(LOG_DIR)) return {};
+  const logs = readdirSync(LOG_DIR).filter(f => f.endsWith('.json'));
+  const published = {};
+  for (const logFile of logs) {
+    try {
+      const log = JSON.parse(readFileSync(join(LOG_DIR, logFile), 'utf-8'));
+      if (log.file !== filePath) continue;
+      for (const [platform, result] of Object.entries(log.platforms || {})) {
+        if (result.status === 'published') {
+          published[platform] = true;
+        }
+      }
+    } catch { /* skip malformed logs */ }
+  }
+  return published;
+}
+
 function findUnpublishedContent() {
   const files = [];
   for (const dir of CONTENT_DIRS) {
@@ -198,7 +221,14 @@ function findUnpublishedContent() {
       const entries = readdirSync(dir);
       for (const entry of entries) {
         if (entry.endsWith('.yaml') || entry.endsWith('.yml')) {
-          files.push(join(dir, entry));
+          const filePath = join(dir, entry);
+          const raw = readFileSync(filePath, 'utf-8');
+          const content = parseYaml(raw);
+          const publishedPlatforms = getPublishedPlatforms(filePath);
+          const pendingPlatforms = (content.platforms || []).filter(p => !publishedPlatforms[p]);
+          if (pendingPlatforms.length > 0) {
+            files.push(filePath);
+          }
         }
       }
     } catch {
