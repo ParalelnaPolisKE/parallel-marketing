@@ -56,3 +56,13 @@ export async function createDraftCampaign({ subject, previewText, htmlContent, f
     archiveUrl: campaign.archive_url,
   };
 }
+
+/**
+ * Send an existing draft campaign.
+ * @param {string} campaignId - Mailchimp campaign ID
+ */
+export async function sendCampaign(campaignId) {
+  const client = initClient();
+  await client.campaigns.send(campaignId);
+  console.log(`  Campaign ${campaignId} sent.`);
+}

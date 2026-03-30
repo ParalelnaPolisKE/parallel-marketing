@@ -6,6 +6,10 @@ on:
       file:
         description: 'Path to newsletter YAML (e.g. content/newsletters/2026-03-30-newsletter.yaml)'
         required: true
+  pull_request:
+    branches: [main]
+    paths:
+      - 'content/newsletters/**'
 
 jobs:
   draft:
@@ -20,9 +24,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Find newsletter files
+        id: files
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "files=${{ inputs.file }}" >> $GITHUB_OUTPUT
+          else
+            FILES=$(git diff --name-only origin/main...HEAD -- 'content/newsletters/**/*.yaml' | tr '\n' ' ')
+            echo "files=$FILES" >> $GITHUB_OUTPUT
+          fi
+
       - name: Create Mailchimp draft
+        if: steps.files.outputs.files != ''
         env:
           MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
           MAILCHIMP_LIST_ID: ${{ secrets.MAILCHIMP_LIST_ID }}
           MAILCHIMP_SERVER_PREFIX: ${{ secrets.MAILCHIMP_SERVER_PREFIX }}
-        run: node scripts/create-newsletter-draft.mjs "${{ inputs.file }}"
+        run: |
+          for f in ${{ steps.files.outputs.files }}; do
+            echo "Creating draft for: $f"
+            node scripts/create-newsletter-draft.mjs "$f"
+          done

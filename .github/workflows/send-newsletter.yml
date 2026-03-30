@@ -1,0 +1,27 @@
+name: Send Newsletter
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaignId:
+        description: 'Mailchimp Campaign ID (from Create Newsletter Draft output)'
+        required: true
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Send newsletter
+        env:
+          MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+          MAILCHIMP_SERVER_PREFIX: ${{ secrets.MAILCHIMP_SERVER_PREFIX }}
+        run: node scripts/send-newsletter.mjs "${{ inputs.campaignId }}"
