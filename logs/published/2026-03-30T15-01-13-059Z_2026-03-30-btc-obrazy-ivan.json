@@ -1,0 +1,34 @@
+{
+  "file": "content/posts/2026-03-30-btc-obrazy-ivan.yaml",
+  "title": "BTC Obrazy v Paralelnej Polis Košice — umelec Ivan",
+  "publishedAt": "2026-03-30T15:00:59.727Z",
+  "platforms": {
+    "nostr": {
+      "status": "published",
+      "eventId": "135fdd5f01c9a94cd5701ac4eb90afd0641524fab803973fafb604da492ba8b3",
+      "pubkey": "npub19u6u0h9pwg8k63e9f535enqdkgzl8wqzwzlnrtnwr853wt4ypszsapm6e6",
+      "relays": [
+        {
+          "relay": "wss://relay.damus.io",
+          "eventId": "135fdd5f01c9a94cd5701ac4eb90afd0641524fab803973fafb604da492ba8b3",
+          "ok": true
+        },
+        {
+          "relay": "wss://nos.lol",
+          "eventId": "135fdd5f01c9a94cd5701ac4eb90afd0641524fab803973fafb604da492ba8b3",
+          "ok": true
+        },
+        {
+          "relay": "wss://relay.nostr.band",
+          "eventId": "135fdd5f01c9a94cd5701ac4eb90afd0641524fab803973fafb604da492ba8b3",
+          "ok": false
+        }
+      ]
+    },
+    "x": {
+      "status": "published",
+      "tweetId": "2038632643051266280",
+      "text": "BTC obrazy od umelca Ivana v Paralelnej Polis Kosice. Prid si pozriet a zakupit. #bitcoin #art https://t.co/ruIaiN5984"
+    }
+  }
+}
