@@ -4,9 +4,10 @@ import { Relay } from 'nostr-tools/relay';
 
 /**
  * Publish a text note (kind 1) to Nostr relays.
+ * Supports optional images via NIP-92 imeta tags.
  * Returns an array of { relay, eventId, ok } results.
  */
-export async function publishToNostr({ text, privateKey, relays }) {
+export async function publishToNostr({ text, privateKey, relays, images = [] }) {
   // Decode nsec to hex if needed
   let secretKeyBytes;
   if (privateKey.startsWith('nsec')) {
@@ -16,11 +17,27 @@ export async function publishToNostr({ text, privateKey, relays }) {
     secretKeyBytes = hexToBytes(privateKey);
   }
 
+  // Build tags array with NIP-92 imeta for each image
+  const tags = [];
+  for (const img of images) {
+    const imetaParts = [`url ${img.url}`];
+    if (img.mimeType) imetaParts.push(`m ${img.mimeType}`);
+    if (img.alt) imetaParts.push(`alt ${img.alt}`);
+    if (img.sha256) imetaParts.push(`x ${img.sha256}`);
+    tags.push(['imeta', ...imetaParts]);
+  }
+
+  // Append image URLs to content so clients without NIP-92 still show them
+  let content = text;
+  if (images.length > 0) {
+    content += '\n\n' + images.map(img => img.url).join('\n');
+  }
+
   const event = finalizeEvent({
     kind: 1,
     created_at: Math.floor(Date.now() / 1000),
-    tags: [],
-    content: text,
+    tags,
+    content,
   }, secretKeyBytes);
 
   const pubkey = getPublicKey(secretKeyBytes);
