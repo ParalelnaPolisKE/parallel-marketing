@@ -1,5 +1,5 @@
-subject: "Novinky z Paralelnej Polis Kosice - AI Meetup #8 + novy Head of Marketing"
-previewText: "Prichadzame s novinkami: AI Meetup #8 a predstavenie noveho Head of Marketing."
+subject: "Novinky z Paralelnej Polis Kosice - AI Meetup #8, coworking a prenajom"
+previewText: "AI Meetup #8, novy Head of Marketing, coworking a moznost prenajmu priestorov."
 type: newsletter
 sections:
   - heading: "Novy Head of Marketing Paralelnej Polis Kosice"
@@ -30,3 +30,29 @@ sections:
     eventLocation: "Paralerna Polis Kosice, Hlavna 36"
     link: "https://events.ppke.sk/ai-prechadzka"
     linkText: "Kupit listky"
+
+  - heading: "Coworking v Paralelnej Polis Kosice"
+    image: "https://www.paralelnapoliskosice.sk/_astro/ppke-05.ChMZQchN_Z252omS.webp"
+    imageAlt: "Coworking v Paralelnej Polis Kosice"
+    body: |
+      Hladate priestor na pracu v centre Kosic? Coworking v Paralelnej Polis je miesto, ktore cez den hosti coworkerov a vecery sa meni na prednasku miestnost s kapacitou az 30 ludi.
+
+      Sedenie je volne alebo si mozete zabezpecit fixne miesto. Na niektorych miestach su pripravene monitory. K dispozicii su aj 2x VR headsety a pocitac s lokalne nainstalovany AI nastrojmi na generovanie obrazkov.
+
+      Priestor sluzi ako platforma pre startupy a komunitu -- navzajom si pomahat, vymienat skusenosti alebo priamo participovat na projektoch.
+
+      Cennik: 10 EUR/den, 80 EUR/mesiac (studenti 40 EUR), fixed-desk 120 EUR/mesiac.
+    link: "https://clenstvo.ppke.sk"
+    linkText: "Kupit clenstvo"
+
+  - heading: "Prenajom priestorov pre vase eventy"
+    image: "https://www.paralelnapoliskosice.sk/_astro/hero-rent.B7CUGuqS_15owKW.webp"
+    imageAlt: "Prenajom priestorov v Paralelnej Polis Kosice"
+    body: |
+      Planujes workshop, prednasku, retreat alebo meeting? Cely priestor Paralelnej Polis alebo jeho casti je mozne prenajat pre vasu udalost. Priestor s vyhliadom na Hlavnu ulicu a Dom sv. Alzbety ponuka 90 m2 s flexibilnym usporiadanim.
+
+      K dispozicii je projektor s platnom (2x1,5m), 8 az 35 miest na sedenie v roznych konfiguraciach, oddychova zona, stmievatelne a farebne LED osvetlenie a osmoticky filtrovana voda.
+
+      Ak viete o niekom, kto hlada priestor na event alebo pravidelne stretnutia, budeme radi ak mu tuto moznost posuniete dalej.
+    link: "https://www.paralelnapoliskosice.sk/prenajom"
+    linkText: "Viac o prenajme"
