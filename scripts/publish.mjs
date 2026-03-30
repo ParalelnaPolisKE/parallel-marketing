@@ -117,8 +117,15 @@ async function publishNostr(content) {
 async function publishX(content) {
   if (!process.env.X_API_KEY) throw new Error('X_API_KEY not set');
 
+  // Use platform-specific text if available, otherwise fall back to main text
+  const text = (content.text_x || content.text).trim();
+
+  // Resolve images with local paths for X media upload
+  const images = resolveImagesForX(content.images);
+
   const result = await publishToX({
-    text: content.text.trim(),
+    text,
+    images,
   });
 
   console.log(`  ✓ X.com: published tweet ${result.tweetId}`);
@@ -162,6 +169,19 @@ function resolveImages(images) {
       sha256,
     };
   });
+}
+
+function resolveImagesForX(images) {
+  if (!Array.isArray(images) || images.length === 0) return [];
+
+  return images.slice(0, 4).map(img => {
+    const entry = typeof img === 'string' ? { path: img } : img;
+    return {
+      localPath: entry.path || null,
+      mimeType: entry.mimeType || guessMime(entry.path),
+      alt: entry.alt || null,
+    };
+  }).filter(img => img.localPath && existsSync(img.localPath));
 }
 
 function guessMime(filePath) {

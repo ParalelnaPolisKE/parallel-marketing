@@ -1,10 +1,12 @@
 import { TwitterApi } from 'twitter-api-v2';
+import { readFileSync } from 'fs';
 
 /**
  * Publish a tweet to X.com using API v2 with OAuth 1.0a user context.
+ * Supports optional image attachments via media upload.
  * Returns { tweetId, text }.
  */
-export async function publishToX({ text }) {
+export async function publishToX({ text, images = [] }) {
   const client = new TwitterApi({
     appKey: process.env.X_API_KEY,
     appSecret: process.env.X_API_SECRET,
@@ -13,7 +15,24 @@ export async function publishToX({ text }) {
   });
 
   try {
-    const { data } = await client.v2.tweet(text);
+    // Upload images if provided
+    const mediaIds = [];
+    for (const img of images) {
+      if (img.localPath) {
+        const buffer = readFileSync(img.localPath);
+        const mediaId = await client.v1.uploadMedia(buffer, {
+          mimeType: img.mimeType || 'image/jpeg',
+        });
+        mediaIds.push(mediaId);
+        console.log(`  ✓ Uploaded media ${mediaId} (${img.localPath})`);
+      }
+    }
+
+    const tweetPayload = mediaIds.length > 0
+      ? { text, media: { media_ids: mediaIds } }
+      : text;
+
+    const { data } = await client.v2.tweet(tweetPayload);
     console.log(`  ✓ Published tweet ${data.id}`);
     return { tweetId: data.id, text: data.text };
   } catch (err) {
