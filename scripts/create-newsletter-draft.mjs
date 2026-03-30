@@ -27,6 +27,9 @@ const sectionsHtml = newsletter.sections.map(section => {
 
   if (section.type === 'event') {
     html += `<h2>${section.heading}</h2>\n`;
+    if (section.image) {
+      html += `<img src="${section.image}" alt="${section.imageAlt || section.heading}" style="width:100%;max-width:600px;height:auto;margin:0 0 16px;display:block;">\n`;
+    }
     html += `<div class="event-card">\n`;
     html += `  <p>${section.body.trim().replace(/\n\n/g, '</p>\n  <p>')}</p>\n`;
     if (section.eventDate) {
