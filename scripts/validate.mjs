@@ -61,6 +61,22 @@ function validate(filePath) {
     }
   }
 
+  // Optional: images (array of objects or strings)
+  if (content.images) {
+    if (!Array.isArray(content.images)) {
+      console.error(`✗ ${filePath}: 'images' must be an array`);
+      errors++;
+    } else {
+      for (const img of content.images) {
+        const entry = typeof img === 'string' ? img : img.path || img.url;
+        if (!entry) {
+          console.error(`✗ ${filePath}: Each image must have a 'path' or 'url'`);
+          errors++;
+        }
+      }
+    }
+  }
+
   // Event-specific: if type=event, must have event.start
   if (content.type === 'event') {
     if (!content.event || !content.event.start) {

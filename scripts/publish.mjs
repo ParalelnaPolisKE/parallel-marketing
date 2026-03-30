@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'fs';
-import { join, basename } from 'path';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'fs';
+import { join, basename, resolve, dirname } from 'path';
 import { parse as parseYaml } from 'yaml';
+import { createHash } from 'crypto';
 import { publishToNostr } from './lib/nostr.mjs';
 import { publishToX } from './lib/x.mjs';
 
@@ -92,10 +93,14 @@ async function publishNostr(content) {
   const relayStr = process.env.NOSTR_RELAYS || 'wss://relay.damus.io,wss://nos.lol,wss://relay.nostr.band';
   const relays = relayStr.split(',').map(r => r.trim());
 
+  // Resolve images to public GitHub raw URLs
+  const images = resolveImages(content.images);
+
   const result = await publishToNostr({
     text: content.text.trim(),
     privateKey,
     relays,
+    images,
   });
 
   const successCount = result.results.filter(r => r.ok).length;
@@ -123,6 +128,47 @@ async function publishX(content) {
     tweetId: result.tweetId,
     text: result.text,
   };
+}
+
+function resolveImages(images) {
+  if (!Array.isArray(images) || images.length === 0) return [];
+
+  const repoOwner = process.env.GITHUB_REPOSITORY || 'ParalelnaPolisKE/parallel-marketing';
+  const branch = process.env.GITHUB_REF_NAME || 'main';
+
+  return images.map(img => {
+    // If already a full URL, use as-is
+    if (typeof img === 'string' && img.startsWith('http')) {
+      return { url: img };
+    }
+
+    const entry = typeof img === 'string' ? { path: img } : img;
+    const filePath = entry.path;
+
+    // Build public GitHub raw URL
+    const url = entry.url || `https://raw.githubusercontent.com/${repoOwner}/${branch}/${filePath}`;
+
+    // Compute sha256 if file exists locally
+    let sha256 = entry.sha256 || null;
+    if (!sha256 && existsSync(filePath)) {
+      const buf = readFileSync(filePath);
+      sha256 = createHash('sha256').update(buf).digest('hex');
+    }
+
+    return {
+      url,
+      alt: entry.alt || null,
+      mimeType: entry.mimeType || guessMime(filePath),
+      sha256,
+    };
+  });
+}
+
+function guessMime(filePath) {
+  if (!filePath) return null;
+  const ext = filePath.split('.').pop().toLowerCase();
+  const mimes = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', gif: 'image/gif', webp: 'image/webp' };
+  return mimes[ext] || null;
 }
 
 function findUnpublishedContent() {

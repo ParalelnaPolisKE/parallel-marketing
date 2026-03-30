@@ -1,0 +1,33 @@
+title: "BTC Obrazy v Paralelnej Polis Košice — umelec Ivan"
+text: |
+  V Paralelnej Polis Košice visia dva unikátne Bitcoin obrazy od slobodného umelca Ivana.
+
+  🎨 "The Journey of Bitcoin — From Hell to Heaven"
+  Monumentálna ikona, ktorá spája techniku rytiectva a olejomaľby na plátne. Zobrazuje cestu Bitcoinu — od chaosu a pochybností cez pyramídu poznania až k víťaznému symbolu na vrchole. Dielo je plné symboliky: postavy stúpajú po schodoch, obklopené hviezdami, mapami a nápísmi, ktoré rozprávajú príbeh slobody a decentralizácie.
+
+  🏜️ "Bitcoin Desert"
+  Veľkoformátová maľba púštnej krajiny v zlatých a čiernych tónoch. Karavána tiav kráča cez duny smerom k obrovskému Bitcoin slnku na horizonte. Obraz je metaforou cesty — dlhej, trpezlivej a s jasným cieľom. Kto vytrvá, dosiahne oázu.
+
+  Obe diela si môžete prísť osobne pozrieť a zakúpiť priamo v priestoroch Paralelnej Polis na Hlavnej 36 v Košiciach. Pri každom obraze nájdete popis a QR kód s detailami.
+
+  Podpor slobodné umenie. Príď sa pozrieť.
+
+  Vojdi von! 🏴
+
+  #bitcoin #art #paralelnapolis #kosice #btc #umenie
+images:
+  - path: content/images/btc-journey-from-hell-to-heaven.jpg
+    alt: "The Journey of Bitcoin — From Hell to Heaven, ikona od umelca Ivana v Paralelnej Polis Košice"
+    mimeType: image/jpeg
+  - path: content/images/btc-desert.jpg
+    alt: "Bitcoin Desert — maľba púštnej krajiny s Bitcoin slnkom od umelca Ivana v Paralelnej Polis Košice"
+    mimeType: image/jpeg
+platforms:
+  - nostr
+type: post
+tags:
+  - bitcoin
+  - art
+  - paralelnapolis
+  - kosice
+  - umenie
