@@ -11,11 +11,17 @@ on:
     paths:
       - 'content/newsletters/**'
 
+permissions:
+  contents: write
+
 jobs:
   draft:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref }}
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -34,7 +40,7 @@ jobs:
             echo "files=$FILES" >> $GITHUB_OUTPUT
           fi
 
-      - name: Create Mailchimp draft
+      - name: Create or update Mailchimp draft
         if: steps.files.outputs.files != ''
         env:
           MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
@@ -42,6 +48,21 @@ jobs:
           MAILCHIMP_SERVER_PREFIX: ${{ secrets.MAILCHIMP_SERVER_PREFIX }}
         run: |
           for f in ${{ steps.files.outputs.files }}; do
-            echo "Creating draft for: $f"
+            echo "Creating/updating draft for: $f"
             node scripts/create-newsletter-draft.mjs "$f"
           done
+
+      - name: Commit campaign ID mapping
+        if: steps.files.outputs.files != '' && github.event_name == 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/newsletters/.campaigns.json || true
+          if git diff --cached --quiet; then
+            echo "No campaign mapping changes to commit."
+          else
+            git commit -m "chore: update campaign ID mapping
+
+          Co-Authored-By: Paperclip <noreply@paperclip.ing>"
+            git push origin HEAD:${{ github.head_ref }}
+          fi

@@ -8,9 +8,10 @@
  *        node scripts/create-newsletter-draft.mjs content/newsletters/2026-03-30-newsletter.yaml
  */
 
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { dirname, resolve } from 'path';
 import { parse as parseYaml } from 'yaml';
-import { createDraftCampaign } from './lib/mailchimp.mjs';
+import { createDraftCampaign, updateDraftCampaign } from './lib/mailchimp.mjs';
 
 const filePath = process.argv[2];
 if (!filePath) {
@@ -69,23 +70,49 @@ console.log(`Subject: ${newsletter.subject}`);
 console.log(`Sections: ${newsletter.sections.length}`);
 console.log(`HTML length: ${fullHtml.length} chars\n`);
 
-// Create draft campaign in Mailchimp
-try {
-  const result = await createDraftCampaign({
-    subject: newsletter.subject,
-    previewText: newsletter.previewText,
-    htmlContent: fullHtml,
-  });
+// Campaign ID tracking file — maps newsletter YAML paths to Mailchimp campaign IDs.
+// This allows updating an existing draft instead of creating a new one on every PR push.
+const campaignsFile = resolve(dirname(filePath), '.campaigns.json');
+let campaigns = {};
+if (existsSync(campaignsFile)) {
+  campaigns = JSON.parse(readFileSync(campaignsFile, 'utf-8'));
+}
 
-  console.log('Draft campaign created in Mailchimp:');
-  console.log(`  Campaign ID: ${result.campaignId}`);
-  console.log(`  Web ID: ${result.webId}`);
-  if (result.archiveUrl) {
-    console.log(`  Archive URL: ${result.archiveUrl}`);
+const existingCampaignId = campaigns[filePath];
+
+try {
+  let result;
+  if (existingCampaignId) {
+    console.log(`Existing campaign found: ${existingCampaignId} — updating draft...`);
+    result = await updateDraftCampaign(existingCampaignId, {
+      subject: newsletter.subject,
+      previewText: newsletter.previewText,
+      htmlContent: fullHtml,
+    });
+    console.log('Draft campaign updated in Mailchimp:');
+    console.log(`  Campaign ID: ${result.campaignId}`);
+  } else {
+    result = await createDraftCampaign({
+      subject: newsletter.subject,
+      previewText: newsletter.previewText,
+      htmlContent: fullHtml,
+    });
+    console.log('Draft campaign created in Mailchimp:');
+    console.log(`  Campaign ID: ${result.campaignId}`);
+    console.log(`  Web ID: ${result.webId}`);
+    if (result.archiveUrl) {
+      console.log(`  Archive URL: ${result.archiveUrl}`);
+    }
+
+    // Save campaign ID for future updates
+    campaigns[filePath] = result.campaignId;
+    writeFileSync(campaignsFile, JSON.stringify(campaigns, null, 2) + '\n');
+    console.log(`  Saved campaign mapping to ${campaignsFile}`);
   }
+
   console.log('\nBoard can review and send from Mailchimp dashboard.');
 } catch (err) {
-  console.error('Failed to create Mailchimp draft:', err.message);
+  console.error('Failed to create/update Mailchimp draft:', err.message);
   if (err.response?.body) {
     console.error('Detail:', JSON.stringify(err.response.body, null, 2));
   }

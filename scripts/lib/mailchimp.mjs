@@ -58,6 +58,43 @@ export async function createDraftCampaign({ subject, previewText, htmlContent, f
 }
 
 /**
+ * Update an existing draft campaign's settings and content.
+ *
+ * @param {string} campaignId - Existing Mailchimp campaign ID
+ * @param {Object} opts
+ * @param {string} opts.subject - Email subject line
+ * @param {string} opts.previewText - Preview text shown in inbox
+ * @param {string} opts.htmlContent - Full HTML content of the email
+ * @param {string} [opts.fromName] - Sender name
+ * @returns {{ campaignId }}
+ */
+export async function updateDraftCampaign(campaignId, { subject, previewText, htmlContent, fromName = 'Paralelna Polis Kosice' }) {
+  const client = initClient();
+  const listId = process.env.MAILCHIMP_LIST_ID;
+  if (!listId) throw new Error('MAILCHIMP_LIST_ID must be set');
+
+  await client.campaigns.update(campaignId, {
+    recipients: { list_id: listId },
+    settings: {
+      subject_line: subject,
+      preview_text: previewText,
+      from_name: fromName,
+      reply_to: 'info@paralelnapolis.sk',
+    },
+  });
+
+  console.log(`  Updated campaign settings: ${campaignId}`);
+
+  await client.campaigns.setContent(campaignId, {
+    html: htmlContent,
+  });
+
+  console.log(`  Content updated for campaign ${campaignId}`);
+
+  return { campaignId };
+}
+
+/**
  * Send an existing draft campaign.
  * @param {string} campaignId - Mailchimp campaign ID
  */
