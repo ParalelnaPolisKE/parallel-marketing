@@ -1,0 +1,3 @@
+# Skutočné environment súbory so secrets — NIKDY necommituj!
+.env
+postiz.env
