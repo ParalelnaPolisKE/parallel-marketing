@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     env_file: postiz.env
     ports:
-      - "4007:4007"
+      - "127.0.0.1:4007:4007"
     volumes:
       - postiz-uploads:/app/uploads
     depends_on:
@@ -110,7 +110,7 @@ services:
     environment:
       - TEMPORAL_ADDRESS=temporal:7233
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     depends_on:
       - temporal
     networks:
