@@ -7,7 +7,7 @@ services:
     ports:
       - "0.0.0.0:4007:5000"
     volumes:
-      - postiz-uploads:/app/uploads
+      - postiz-uploads:/uploads
     depends_on:
       postiz-postgres:
         condition: service_healthy
