@@ -106,6 +106,27 @@ services:
     networks:
       - postiz-network
 
+  # --- Postiz Agent auth server (device flow OAuth2) ---
+  postiz-agent-server:
+    build: ./postiz-agent-server
+    container_name: postiz-agent-server
+    restart: unless-stopped
+    environment:
+      PORT: "3111"
+      SERVER_URL: https://postiz-agent.local.ppke.sk
+      POSTIZ_FRONTEND_URL: https://postiz.local.ppke.sk
+      POSTIZ_API_URL: https://postiz.local.ppke.sk/api
+      POSTIZ_OAUTH_CLIENT_ID: ${POSTIZ_AGENT_OAUTH_CLIENT_ID}
+      POSTIZ_OAUTH_CLIENT_SECRET: ${POSTIZ_AGENT_OAUTH_CLIENT_SECRET}
+      DATABASE_URL: postgresql://postiz:${POSTGRES_PASSWORD}@postiz-postgres:5432/postiz
+    ports:
+      - "0.0.0.0:3111:3111"
+    depends_on:
+      postiz-postgres:
+        condition: service_healthy
+    networks:
+      - postiz-network
+
   temporal-ui:
     image: temporalio/ui:latest
     container_name: temporal-ui
