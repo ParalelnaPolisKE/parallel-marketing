@@ -8,6 +8,9 @@ services:
       - "0.0.0.0:4007:5000"
     volumes:
       - postiz-uploads:/uploads
+      # Nostr provider patch: hex/nsec key conversion + memory cleanup
+      - ./patches/nostr.provider.js:/app/apps/backend/dist/libraries/nestjs-libraries/src/integrations/social/nostr.provider.js:ro
+      - ./patches/nostr.provider.js:/app/apps/orchestrator/dist/libraries/nestjs-libraries/src/integrations/social/nostr.provider.js:ro
     depends_on:
       postiz-postgres:
         condition: service_healthy
