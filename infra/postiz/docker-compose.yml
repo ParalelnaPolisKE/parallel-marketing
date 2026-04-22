@@ -17,7 +17,7 @@ services:
       postiz-redis:
         condition: service_healthy
       temporal:
-        condition: service_started
+        condition: service_healthy
     networks:
       - postiz-network
 
@@ -98,6 +98,12 @@ services:
       - ENABLE_ES=true
       - ES_SEEDS=temporal-elasticsearch
       - ES_VERSION=v7
+    healthcheck:
+      test: ["CMD", "tctl", "--address", "temporal:7233", "cluster", "health"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
     depends_on:
       temporal-postgresql:
         condition: service_healthy
