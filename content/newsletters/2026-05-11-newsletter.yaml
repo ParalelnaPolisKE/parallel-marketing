@@ -9,10 +9,12 @@ sections:
 
       Na prednáške sa dozvieš, ako autonómni AI agenti preberajú úlohy v reálnych firmách — od marketingu cez zákaznícku podporu až po softvérový vývoj. Ukážeme si praktické príklady, riziká aj príležitosti, ktoré tento model prináša.
 
-      Lístky sú k dispozícii cez SatoshiTickets. Platba Bitcoinom alebo hotovosťou na mieste.
-    eventDate: "2026-05-27T18:00:00+02:00"
+      Early Bird vstupné: 7 €, potom 10 €. Platba Bitcoinom alebo hotovosťou na mieste.
+    eventDate: "2026-05-27T16:00:00+02:00"
     eventLocation: "Paralelná Polis Košice, Hlavná 36"
-    link: "TODO_PURCHASE_LINK"
+    image: "https://www.paralelnapoliskosice.sk/img/agenticke-organizacie-hero.png"
+    imageAlt: "Agentické organizácie — prednáška v Paralelnej Polis Košice"
+    link: "https://events.ppke.sk/ai-meetup-9"
     linkText: "Kúpiť lístky"
 
   - heading: "Slobodný trh — prednáška Vlastimila Šveca"
