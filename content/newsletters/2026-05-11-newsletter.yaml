@@ -58,6 +58,8 @@ sections:
     linkText: "Kúpiť členstvo"
 
   - heading: "Prenájom priestorov pre vaše eventy"
+    image: "https://www.paralelnapoliskosice.sk/_astro/hero-rent.B7CUGuqS_15owKW.webp"
+    imageAlt: "Prenájom priestorov v Paralelnej Polis Košice"
     body: |
       Plánuješ workshop, prednášku, retreat alebo meeting? Celý priestor Paralelnej Polis alebo jeho časti je možné prenajať pre vašu udalosť. Priestor s výhľadom na Hlavnú ulicu ponúka 90 m2 s flexibilným usporiadaním, projektor s plátnom, 8 až 35 miest a ďalšie vybavenie.
     link: "https://www.paralelnapoliskosice.sk/prenajom"
