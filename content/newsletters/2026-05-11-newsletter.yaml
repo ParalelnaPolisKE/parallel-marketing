@@ -2,18 +2,20 @@ subject: "Novinky z Paralelnej Polis Košice — máj 2026"
 previewText: "Agentické organizácie, nový blogpost o KelpDAO hacku, recap eventov a coworking."
 type: newsletter
 sections:
-  - heading: "Nadchádzajúca prednáška: Agentické organizácie"
+  - heading: "AI meetup #9 — Agentické organizácie"
     type: event
     body: |
-      Ako fungujú organizácie, v ktorých AI agenti spolupracujú s ľuďmi? Čo sú agentické organizácie a ako menia spôsob, akým pracujeme, rozhodujeme sa a koordinujeme?
+      Ako fungujú agentické organizácie, ktoré využívajú AI na management, softvérový vývoj, marketing, predaj a riadenie procesov?
 
-      Na prednáške sa dozvieš, ako autonómni AI agenti preberajú úlohy v reálnych firmách — od marketingu cez zákaznícku podporu až po softvérový vývoj. Ukážeme si praktické príklady, riziká aj príležitosti, ktoré tento model prináša.
+      Michal Takáč a Tomáš Kanócz predstavia Paperclip — open-source platformu na koordináciu agentických organizácií. Ukážeme si organizačné schémy, zdieľané zručnosti, pluginy a integrácie s Openclaw alebo Hermes agentmi.
+
+      Meetup organizuje Paralelná Polis Košice v spolupráci s QuestSpace hackerspace. Pre držiteľov remote lístkov bude k dispozícii livestream.
 
       Early Bird vstupné: 7 €, potom 10 €. Platba Bitcoinom alebo hotovosťou na mieste.
     eventDate: "2026-05-27T16:00:00+02:00"
     eventLocation: "Paralelná Polis Košice, Hlavná 36"
-    image: "https://www.paralelnapoliskosice.sk/img/agenticke-organizacie-hero.png"
-    imageAlt: "Agentické organizácie — prednáška v Paralelnej Polis Košice"
+    image: "https://shop.ppke.sk/LocalStorage/609776fb-f131-4fd8-b9f3-b1b2107d9e56-paperclip-hero.png"
+    imageAlt: "AI meetup #9 — Agentické organizácie"
     link: "https://events.ppke.sk/ai-meetup-9"
     linkText: "Kúpiť lístky"
 
