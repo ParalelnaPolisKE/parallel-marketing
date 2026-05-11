@@ -1,0 +1,64 @@
+subject: "Novinky z Paralelnej Polis Košice — máj 2026"
+previewText: "Agentické organizácie, nový blogpost o KelpDAO hacku, recap eventov a coworking."
+type: newsletter
+sections:
+  - heading: "Nadchádzajúca prednáška: Agentické organizácie"
+    type: event
+    body: |
+      Ako fungujú organizácie, v ktorých AI agenti spolupracujú s ľuďmi? Čo sú agentické organizácie a ako menia spôsob, akým pracujeme, rozhodujeme sa a koordinujeme?
+
+      Na prednáške sa dozvieš, ako autonómni AI agenti preberajú úlohy v reálnych firmách — od marketingu cez zákaznícku podporu až po softvérový vývoj. Ukážeme si praktické príklady, riziká aj príležitosti, ktoré tento model prináša.
+
+      Lístky sú k dispozícii cez SatoshiTickets. Platba Bitcoinom alebo hotovosťou na mieste.
+    eventDate: "2026-05-27T18:00:00+02:00"
+    eventLocation: "Paralelná Polis Košice, Hlavná 36"
+    link: "TODO_PURCHASE_LINK"
+    linkText: "Kúpiť lístky"
+
+  - heading: "Slobodný trh — prednáška Vlastimila Šveca"
+    body: |
+      14. apríla sme privítali Vlastimila Šveca s prednáškou o slobodnom trhu. Rozobral teóriu slobodného trhu z pohľadu ekonómie a ľudského jednania — prečo statky vymieňame, čo nás motivuje a ako boli pojmy sloboda a trh predefinované.
+
+      V druhej časti prednášky sa venoval otázke, ako by bezštátna spoločnosť dokázala poskytovať služby, o ktorých si dnes myslíme, že ich vie poskytnúť iba štát.
+    link: "https://www.paralelnapoliskosice.sk/akcie/2026-04-14-slobodny-trh-svec"
+    linkText: "Viac o prednáške"
+
+  - heading: "AI Meetup #8: Prechádzka latentným priestorom"
+    body: |
+      Prvý apríl sme oslávili prechádzkou v latentnom priestore lokálnych open source modelov cez ComfyUI. Účastníci si vyskúšali text-to-image generovanie, style transfer a prácu s modelmi ako Flux2 Klein a SDXL — to všetko na bežnej grafickej karte s 12 GB VRAM.
+
+      Ak ťa téma zaujala, sleduj naše kanály — ďalší AI meetup je v príprave.
+    link: "https://www.paralelnapoliskosice.sk/akcie/2026-04-01-prechadzka-latentnym-priestorom"
+    linkText: "Viac o meetupe"
+
+  - heading: "Nový blogpost: KelpDAO hack za $292M"
+    body: |
+      Na našom webe pribudol nový článok o jednom z najväčších DeFi hackov roku 2026. Útočník zneužil cross-chain infraštruktúru LayerZero, kde stačil jeden overovateľ na presun 116 500 rsETH tokenov v hodnote $292M.
+
+      Článok rozoberá, čo sa stalo, prečo 47% LayerZero aplikácií používa rovnako zraniteľné nastavenie 1-z-1 DVN, a aké ponaučenia z toho plynú pre DeFi aj bežných používateľov.
+    link: "https://www.paralelnapoliskosice.sk/blog/2026-04-21-kelpdao-hack-292m-defi-past"
+    linkText: "Prečítať článok"
+
+  - heading: "BTC obrazy v Paralelnej Polis Košice"
+    body: |
+      V našich priestoroch stále visia dva unikátne Bitcoin obrazy od slobodného umelca Ivana — „The Journey of Bitcoin — From Hell to Heaven" a „Bitcoin Desert". Obe diela si môžeš prísť osobne pozrieť a zakúpiť na Hlavnej 36 v Košiciach.
+    link: "https://www.paralelnapoliskosice.sk"
+    linkText: "Navštív nás"
+
+  - heading: "Coworking v Paralelnej Polis Košice"
+    image: "https://www.paralelnapoliskosice.sk/_astro/ppke-05.ChMZQchN_Z252omS.webp"
+    imageAlt: "Coworking v Paralelnej Polis Košice"
+    body: |
+      Hľadáš priestor na prácu v centre Košíc? Coworking v Paralelnej Polis je miesto, ktoré cez deň hostí coworkerov a večery sa mení na prednáškovú miestnosť s kapacitou až 30 ľudí.
+
+      K dispozícii sú monitory, 2x VR headsety a počítač s lokálne nainštalovanými AI nástrojmi. Priestor slúži ako platforma pre startupy a komunitu.
+
+      Cenník: 10 EUR/deň, 80 EUR/mesiac (študenti 40 EUR), fixed-desk 120 EUR/mesiac.
+    link: "https://clenstvo.ppke.sk"
+    linkText: "Kúpiť členstvo"
+
+  - heading: "Prenájom priestorov pre vaše eventy"
+    body: |
+      Plánuješ workshop, prednášku, retreat alebo meeting? Celý priestor Paralelnej Polis alebo jeho časti je možné prenajať pre vašu udalosť. Priestor s výhľadom na Hlavnú ulicu ponúka 90 m2 s flexibilným usporiadaním, projektor s plátnom, 8 až 35 miest a ďalšie vybavenie.
+    link: "https://www.paralelnapoliskosice.sk/prenajom"
+    linkText: "Viac o prenájme"
